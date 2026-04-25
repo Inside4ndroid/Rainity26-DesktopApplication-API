@@ -11,7 +11,7 @@
 
 ---
 
-## ??? CPU Monitoring
+## ?? CPU Monitoring
 
 | Feature | Status | Type | Function | Notes |
 |---------|--------|------|----------|-------|
@@ -214,7 +214,7 @@
 
 ---
 
-## ?? Performance Overhead
+## ? Performance Overhead
 
 | Metric Type | Overhead | Update Frequency |
 |-------------|----------|------------------|
@@ -231,7 +231,7 @@
 
 ---
 
-## ?? Enhancement Roadmap
+## ??? Enhancement Roadmap
 
 ### Priority 1 (Easy to Add)
 - [ ] Per-process CPU/memory usage
