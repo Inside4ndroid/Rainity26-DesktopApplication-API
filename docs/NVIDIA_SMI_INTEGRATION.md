@@ -1,28 +1,28 @@
 # NVIDIA-SMI Integration for Power Monitoring
 
-## ?? Overview
+## Overview
 
 The GPU monitoring system now supports reading **GPU power draw** via `nvidia-smi` (NVIDIA System Management Interface), which is included with NVIDIA drivers.
 
-## ? What's Now Available
+## What's Now Available
 
 ### With NVAPI (Built-in):
-- ? GPU Temperature
-- ? Core Clock Speed
-- ? Memory Clock Speed
-- ? GPU Usage %
-- ? Fan Speed (RPM & %)
+- GPU Temperature
+- Core Clock Speed
+- Memory Clock Speed
+- GPU Usage %
+- Fan Speed (RPM & %)
 
 ### With nvidia-smi (New):
-- ? **GPU Power Draw** (Watts)
-- ? **GPU Power Limit** (Max Watts)
+- **GPU Power Draw** (Watts)
+- **GPU Power Limit** (Max Watts)
 
 ### Still Unavailable:
-- ? GPU Voltage (requires hardware sensors or MSI Afterburner SDK)
+- GPU Voltage (requires hardware sensors or MSI Afterburner SDK)
 
 ---
 
-## ?? How It Works
+## How It Works
 
 ### Automatic Detection
 The system automatically:
@@ -45,18 +45,18 @@ nvidia-smi --query-gpu=power.draw,power.limit --format=csv,noheader,nounits -i 0
 
 ---
 
-## ?? Expected Results
+## Expected Results
 
 ### RTX 4090 Example:
 ```
 [GetGPUInformation] Name: 'NVIDIA GeForce RTX 4090'
 [GetGPUInformation] Vendor: NVIDIA
 [GetGPUInformation] Usage: 45.2%
-[GetGPUInformation] Temp: 62°C
+[GetGPUInformation] Temp: 62ï¿½C
 [GetGPUInformation] Core clock: 2520 MHz
 [GetGPUInformation] Memory clock: 10501 MHz
 [GetGPUInformation] Fan: 1850 RPM (61%)
-[GetGPUInformation] Power draw: 325.5 W     ? NEW! via nvidia-smi
+[GetGPUInformation] Power draw: 325.5 W     # NEW! via nvidia-smi
 [GetGPUInformation] Voltage: unavailable
 ```
 
@@ -68,7 +68,7 @@ nvidia-smi --query-gpu=power.draw,power.limit --format=csv,noheader,nounits -i 0
 
 ---
 
-## ? Performance & Caching
+## Performance & Caching
 
 ### Caching Strategy:
 - **Cache Lifetime**: 1 second
@@ -86,7 +86,7 @@ The system only queries power data when `GetGPUMetrics()` or `GetGPUPowerDraw()`
 
 ---
 
-## ??? Troubleshooting
+## Troubleshooting
 
 ### Power draw returns -1.0 (unavailable)
 
@@ -122,7 +122,7 @@ If this returns "N/A", your GPU doesn't support power monitoring.
 
 ---
 
-## ?? Advanced: Available nvidia-smi Queries
+## Advanced: Available nvidia-smi Queries
 
 ### Full Power Stats:
 ```bash
@@ -142,7 +142,7 @@ Voltage is **not directly available** via nvidia-smi on most consumer GPUs. It r
 
 ---
 
-## ?? Future Enhancements
+## Future Enhancements
 
 ### Possible Additions:
 1. **GPU Memory Usage** (via nvidia-smi)
@@ -169,7 +169,7 @@ metrics.memoryUsed = std::stoull(token) * 1024 * 1024; // Convert MB to bytes
 
 ---
 
-## ?? C# Integration
+## C# Integration
 
 ### Get Power Draw:
 ```csharp
@@ -192,12 +192,12 @@ float temp = GetGPUTemperature();
 int clock = GetGPUClockSpeed();
 int fan = GetGPUFanSpeed();
 
-Console.WriteLine($"Power: {power}W | Temp: {temp}°C | Clock: {clock} MHz | Fan: {fan} RPM");
+Console.WriteLine($"Power: {power}W | Temp: {temp}ï¿½C | Clock: {clock} MHz | Fan: {fan} RPM");
 ```
 
 ---
 
-## ??? Configuration
+## Configuration
 
 ### Adjust Cache Lifetime:
 In `GPUMonitor.cpp`, find:
@@ -220,16 +220,16 @@ Comment out the power query in `GetGPUMetrics()`:
 
 ---
 
-## ?? Comparison: NVAPI vs nvidia-smi
+## Comparison: NVAPI vs nvidia-smi
 
 | Metric | NVAPI | nvidia-smi | Winner |
 |--------|-------|------------|--------|
-| Temperature | ? Fast | ? Available | NVAPI (faster) |
-| Clock Speed | ? Fast | ? Available | NVAPI (faster) |
-| Fan Speed | ? Fast | ? Available | NVAPI (faster) |
-| GPU Usage | ? Fast | ? Available | NVAPI (faster) |
-| **Power Draw** | ? | ? Available | **nvidia-smi** |
-| Voltage | ? | ? | Neither |
+| Temperature | Yes (fast) | Yes | NVAPI (faster) |
+| Clock Speed | Yes (fast) | Yes | NVAPI (faster) |
+| Fan Speed | Yes (fast) | Yes | NVAPI (faster) |
+| GPU Usage | Yes (fast) | Yes | NVAPI (faster) |
+| **Power Draw** | No | Yes | **nvidia-smi** |
+| Voltage | No | No | Neither |
 | Latency | <1ms | ~50ms | NVAPI |
 | Admin Required | No | No | Tie |
 
@@ -237,14 +237,14 @@ Comment out the power query in `GetGPUMetrics()`:
 
 ---
 
-## ? Summary
+## Summary
 
 ### What Changed:
-1. ? Added nvidia-smi command execution
-2. ? Added power data parsing (CSV format)
-3. ? Added 1-second caching to minimize overhead
-4. ? Integrated into existing GetGPUMetrics() API
-5. ? Graceful fallback if nvidia-smi unavailable
+1. Added nvidia-smi command execution
+2. Added power data parsing (CSV format)
+3. Added 1-second caching to minimize overhead
+4. Integrated into existing GetGPUMetrics() API
+5. Graceful fallback if nvidia-smi unavailable
 
 ### What's New:
 - **GPU Power Draw** (Watts) - Real-time power consumption
@@ -257,6 +257,6 @@ Comment out the power query in `GetGPUMetrics()`:
 
 ---
 
-**Power monitoring now works out of the box if you have NVIDIA drivers installed!** ??
+**Power monitoring now works out of the box if you have NVIDIA drivers installed!**
 
 Test it with your Unity application and you should now see real power draw values instead of "unavailable".

@@ -1,48 +1,48 @@
 # NVIDIA Power Monitoring: N/A Explained
 
-## ?? Issue: Power Draw Shows "N/A"
+## Issue: Power Draw Shows "N/A"
 
 ### Your System Configuration:
 ```
-GPU: NVIDIA GeForce RTX 4090
+| GPU: NVIDIA GeForce RTX 4090    |
 Mode: WDDM (Windows Display Driver Model)
 Power Draw: [N/A]
 Power Limit: 500.00 W
 ```
 
-## ? **This is NORMAL and EXPECTED**
+## **This is NORMAL and EXPECTED**
 
 ### Why Power Draw is N/A:
 
 NVIDIA **intentionally disables** power monitoring for GeForce GPUs in WDDM mode when:
-1. ? GPU is in WDDM mode (display driver mode)
-2. ? GPU is driving monitor output
-3. ? GPU is a consumer card (GeForce, not Quadro/Tesla)
-4. ? Driver restricts power reporting for stability
+1. GPU is in WDDM mode (display driver mode)
+2. GPU is driving monitor output
+3. GPU is a consumer card (GeForce, not Quadro/Tesla)
+4. Driver restricts power reporting for stability
 
 ---
 
-## ?? WDDM vs TCC Mode
+## WDDM vs TCC Mode
 
 ### **WDDM (Windows Display Driver Model)**
-Your current mode ?
+Your current mode (active)
 - **Purpose**: Gaming, desktop, display output
-- **Display Output**: ? Yes (required for monitors)
-- **Power Monitoring**: ? Often N/A for GeForce
+- **Display Output**: Yes (required for monitors)
+- **Power Monitoring**: Often N/A for GeForce
 - **Who Uses**: Gamers, desktop users (you!)
 - **Graphics APIs**: DirectX, Vulkan, OpenGL all work
 
 ### **TCC (Tesla Compute Cluster)**
-Not applicable for your use case ?
+Not applicable for your use case
 - **Purpose**: Pure compute (no display)
-- **Display Output**: ? No (GPU becomes invisible)
-- **Power Monitoring**: ? Always available
+- **Display Output**: No (GPU becomes invisible)
+- **Power Monitoring**: Always available
 - **Who Uses**: Data centers, headless compute nodes
-- **Graphics APIs**: ? None work (compute only)
+- **Graphics APIs**: None work (compute only)
 
 ---
 
-## ?? **Why You CAN'T Switch to TCC**
+## **Why You CAN'T Switch to TCC**
 
 ### If you tried:
 ```cmd
@@ -50,20 +50,20 @@ nvidia-smi -i 0 -dm 1  # Switch to TCC
 ```
 
 ### What would happen:
-1. ? **All monitors go black**
-2. ? **Windows desktop disappears**
-3. ? **No graphics output whatsoever**
-4. ? **Unity won't render anything**
-5. ? **Games won't work**
-6. ? **System becomes unusable for desktop**
+1. **All monitors go black**
+2. **Windows desktop disappears**
+3. **No graphics output whatsoever**
+4. **Unity won't render anything**
+5. **Games won't work**
+6. **System becomes unusable for desktop**
 
 **TCC mode is ONLY for headless servers!**
 
 ---
 
-## ? **Your Options**
+## **Your Options**
 
-### **Option 1: Accept N/A (Recommended)** ?
+### **Option 1: Accept N/A (Recommended)**
 This is the correct approach:
 
 ```csharp
@@ -75,14 +75,14 @@ else
 ```
 
 **Why this is fine:**
-- ? Your GPU works perfectly
-- ? All other metrics work (temp, clocks, fan, usage)
-- ? This is normal for consumer GPUs
-- ? Power monitoring isn't critical for most applications
+- Your GPU works perfectly
+- All other metrics work (temp, clocks, fan, usage)
+- This is normal for consumer GPUs
+- Power monitoring isn't critical for most applications
 
 ---
 
-### **Option 2: Use MSI Afterburner SDK** ??
+### **Option 2: Use MSI Afterburner SDK**
 
 MSI Afterburner bypasses NVIDIA's restrictions using kernel drivers.
 
@@ -109,18 +109,18 @@ MSI Afterburner bypasses NVIDIA's restrictions using kernel drivers.
    - Shared memory access enabled
 
 **Pros:**
-- ? Real power monitoring in WDDM mode
-- ? Works with GeForce GPUs
-- ? Also provides voltage, frequencies, etc.
+- Real power monitoring in WDDM mode
+- Works with GeForce GPUs
+- Also provides voltage, frequencies, etc.
 
 **Cons:**
-- ? Requires MSI Afterburner installed
-- ? User must run Afterburner
-- ? Additional dependency
+- Requires MSI Afterburner installed
+- User must run Afterburner
+- Additional dependency
 
 ---
 
-### **Option 3: Use HWiNFO64 SDK** ??
+### **Option 3: Use HWiNFO64 SDK**
 
 HWiNFO64 is another monitoring tool with SDK access.
 
@@ -132,18 +132,18 @@ HWiNFO64 is another monitoring tool with SDK access.
 ```
 
 **Pros:**
-- ? More detailed than MSI Afterburner
-- ? Works in WDDM mode
-- ? Free tool
+- More detailed than MSI Afterburner
+- Works in WDDM mode
+- Free tool
 
 **Cons:**
-- ? Requires HWiNFO64 installed
-- ? Must be running in background
-- ? SDK is Windows-only
+- Requires HWiNFO64 installed
+- Must be running in background
+- SDK is Windows-only
 
 ---
 
-### **Option 4: Estimate Power (Advanced)** ??
+### **Option 4: Estimate Power (Advanced)**
 
 If you really need power data, you can estimate it:
 
@@ -170,21 +170,21 @@ float EstimatePowerDraw()
 ```
 
 **Pros:**
-- ? Works without external tools
-- ? No dependencies
-- ? Gives approximate values
+- Works without external tools
+- No dependencies
+- Gives approximate values
 
 **Cons:**
-- ? Not accurate (±50W error)
-- ? Doesn't account for voltage
-- ? Simple linear model
+- Not accurate (ï¿½50W error)
+- Doesn't account for voltage
+- Simple linear model
 
 ---
 
-## ?? **What DOES Work on Your System**
+## **What DOES Work on Your System**
 
-### ? **Fully Working (via NVAPI):**
-- GPU Temperature (37°C in your case)
+### **Fully Working (via NVAPI):**
+- GPU Temperature (37ï¿½C in your case)
 - GPU Usage (1% in your idle state)
 - Core Clock Speed
 - Memory Clock Speed
@@ -192,14 +192,14 @@ float EstimatePowerDraw()
 - GPU Name & Vendor ID
 - VRAM Usage
 
-### ?? **Not Available (NVIDIA Restriction):**
+### **Not Available (NVIDIA Restriction):**
 - Power Draw (shows N/A in WDDM)
 - Power Limit (shows value but draw is N/A)
 - Voltage (not in public API)
 
 ---
 
-## ?? **Recommendation**
+## **Recommendation**
 
 ### **For Your Unity Application:**
 
@@ -233,19 +233,19 @@ public class GPUMonitor : MonoBehaviour
 
 ### **UI Display:**
 ```
-??????????????????????????????????
-? GPU: NVIDIA GeForce RTX 4090   ?
-? Temp: 37°C                     ?
-? Usage: 1%                      ?
-? Clock: 420 MHz                 ?
-? Fan: 0 RPM (idle)              ?
-? Power: N/A (Display Mode)     ? ? User understands why
-??????????????????????????????????
++----------------------------------+
+| GPU: NVIDIA GeForce RTX 4090    |
+| Temp: 37Â°C                      |
+| Usage: 1%                       |
+| Clock: 420 MHz                  |
+| Fan: 0 RPM (idle)               |
+| Power: N/A (Display Mode)       |  <- User understands why
++----------------------------------+
 ```
 
 ---
 
-## ?? **Technical Deep Dive**
+## **Technical Deep Dive**
 
 ### Why NVIDIA Blocks Power Monitoring in WDDM:
 
@@ -271,50 +271,50 @@ public class GPUMonitor : MonoBehaviour
 
 ---
 
-## ?? **Known Working Configurations**
+## **Known Working Configurations**
 
 ### **Power Monitoring WORKS:**
-- ? Quadro/Tesla GPUs in TCC mode
-- ? GeForce GPUs in TCC mode (no display)
-- ? Laptops with NVIDIA Optimus (sometimes)
-- ? Via MSI Afterburner (kernel driver bypass)
-- ? Via HWiNFO64 (kernel driver bypass)
+- Quadro/Tesla GPUs in TCC mode
+- GeForce GPUs in TCC mode (no display)
+- Laptops with NVIDIA Optimus (sometimes)
+- Via MSI Afterburner (kernel driver bypass)
+- Via HWiNFO64 (kernel driver bypass)
 
 ### **Power Monitoring N/A:**
-- ? GeForce GPUs in WDDM mode (your case)
-- ? GPUs driving displays
-- ? Consumer cards without external tools
-- ? Older drivers (pre-2015)
+- GeForce GPUs in WDDM mode (your case)
+- GPUs driving displays
+- Consumer cards without external tools
+- Older drivers (pre-2015)
 
 ---
 
-## ? **Summary**
+## **Summary**
 
 ### **Your Situation:**
 ```
 GPU: RTX 4090
 Mode: WDDM (required for display)
-Power: N/A (expected and normal)
+| Power: N/A (Display Mode)       |  <- User understands why
 Solution: Accept N/A or use MSI Afterburner
 ```
 
 ### **What You Should Do:**
-1. ? **Accept that power monitoring isn't available** (recommended)
-2. ? **Update your UI to show "N/A (Display Mode)"**
-3. ? **Enjoy all the other metrics that DO work**
-4. ?? **Optionally integrate MSI Afterburner if power is critical**
-5. ? **DON'T switch to TCC mode** (you'll lose display output)
+1. **Accept that power monitoring isn't available** (recommended)
+2. **Update your UI to show "N/A (Display Mode)"**
+3. **Enjoy all the other metrics that DO work**
+4. **Optionally integrate MSI Afterburner if power is critical**
+5. **DON'T switch to TCC mode** (you'll lose display output)
 
 ---
 
 ### **Updated DLL Behavior:**
-- ? Now correctly parses "[N/A]" from nvidia-smi
-- ? Returns -1.0 when power unavailable
-- ? Your C# code can check `if (power < 0)` for N/A
-- ? Power limit (500W) is still reported
+- Now correctly parses "[N/A]" from nvidia-smi
+- Returns -1.0 when power unavailable
+- Your C# code can check `if (power < 0)` for N/A
+- Power limit (500W) is still reported
 
 ---
 
-**Bottom Line:** Your RTX 4090 is working perfectly. Power monitoring simply isn't available in your configuration, and that's 100% normal for GeForce GPUs in display mode. All other GPU monitoring features work great! ??
+**Bottom Line:** Your RTX 4090 is working perfectly. Power monitoring simply isn't available in your configuration, and that's 100% normal for GeForce GPUs in display mode. All other GPU monitoring features work great!
 
 If you absolutely need power monitoring, MSI Afterburner is your best option. Otherwise, just display "N/A" and move on - it's not worth the hassle for most applications.

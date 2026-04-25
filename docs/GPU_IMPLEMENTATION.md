@@ -1,4 +1,4 @@
-﻿# GPU Vendor API Implementation Summary
+# GPU Vendor API Implementation Summary
 
 ## ✅ What's Been Implemented
 

@@ -1,6 +1,6 @@
 # Quick Test: nvidia-smi Power Monitoring
 
-## ? Verify nvidia-smi Works
+## Verify nvidia-smi Works
 
 ### 1. Open Command Prompt (Win+R, type `cmd`)
 
@@ -32,11 +32,11 @@ nvidia-smi --query-gpu=power.draw,power.limit --format=csv,noheader,nounits
 145.32, 450.00
 ```
 
-If you see numbers, it works! ?
+If you see numbers, it works!
 
 ---
 
-## ?? Test in Your Application
+## Test in Your Application
 
 ### C# Test Code:
 ```csharp
@@ -80,7 +80,7 @@ public class GPUPowerTest : MonoBehaviour
         
         Debug.Log($"=== GPU Stats ===");
         Debug.Log($"Power: {(power >= 0 ? $"{power:F1} W" : "unavailable")}");
-        Debug.Log($"Temp: {temp:F1}°C");
+        Debug.Log($"Temp: {temp:F1}ï¿½C");
         Debug.Log($"Clock: {clock} MHz");
         Debug.Log($"Fan: {fan} RPM");
         Debug.Log($"================");
@@ -91,8 +91,8 @@ public class GPUPowerTest : MonoBehaviour
 ### Expected Console Output:
 ```
 === GPU Stats ===
-Power: 145.3 W          ? Should now show real value!
-Temp: 62.0°C
+Power: 145.3 W          # Should now show real value!
+Temp: 62.0ï¿½C
 Clock: 2520 MHz
 Fan: 1850 RPM
 ================
@@ -100,7 +100,7 @@ Fan: 1850 RPM
 
 ---
 
-## ?? Troubleshooting
+## Troubleshooting
 
 ### If Power Still Shows "unavailable":
 
@@ -151,7 +151,7 @@ if (!CreateProcessA(...))
 
 ---
 
-## ?? Performance Test
+## Performance Test
 
 ### Measure nvidia-smi Latency:
 ```cmd
@@ -169,7 +169,7 @@ for /l %i in (1,1,10) do @echo | time & nvidia-smi --query-gpu=power.draw --form
 
 ---
 
-## ?? Validation Checklist
+## Validation Checklist
 
 - [ ] nvidia-smi runs in Command Prompt
 - [ ] Power query returns numbers (not "N/A")
@@ -181,7 +181,7 @@ for /l %i in (1,1,10) do @echo | time & nvidia-smi --query-gpu=power.draw --form
 
 ---
 
-## ?? Advanced: Test Different GPU Loads
+## Advanced: Test Different GPU Loads
 
 ### 1. Idle State:
 Run your Unity app with minimal scene.
@@ -211,14 +211,14 @@ Press 'P' to check power at any time!
 
 ---
 
-## ? Success Indicators
+## Success Indicators
 
 ### Power Monitoring is Working If:
-1. ? Power value is between 10W and your GPU's TDP (e.g., 450W for RTX 4090)
-2. ? Power changes when GPU load changes
-3. ? Power increases when rendering heavy scenes
-4. ? Power decreases when minimizing/idle
-5. ? First call takes ~50ms, subsequent calls <1ms
+1. Power value is between 10W and your GPU's TDP (e.g., 450W for RTX 4090)
+2. Power changes when GPU load changes
+3. Power increases when rendering heavy scenes
+4. Power decreases when minimizing/idle
+5. First call takes ~50ms, subsequent calls <1ms
 
 ### Example Valid Values:
 ```
@@ -229,7 +229,7 @@ RTX 3080:   15W (idle) to 320W (max)
 RTX 3060:   10W (idle) to 170W (max)
 ```
 
-If your values are in this range and change with load, **it's working perfectly!** ??
+If your values are in this range and change with load, **it's working perfectly!**
 
 ---
 

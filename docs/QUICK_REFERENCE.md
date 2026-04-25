@@ -1,6 +1,6 @@
 # System Monitor API - Quick Reference Guide
 
-## ?? Quick Start
+## Quick Start
 
 ### Minimal Example
 ```cpp
@@ -29,7 +29,7 @@ float cpu = GetCPUPercentPDH();
 Console.WriteLine($"CPU: {cpu}%");
 ```
 
-## ?? Function Categories
+## Function Categories
 
 ### Initialization
 | Function | Description | Returns |
@@ -96,7 +96,7 @@ Console.WriteLine($"CPU: {cpu}%");
 | `GetMouseDown()` | Check mouse down event | `bool` |
 | `GetMouseUp()` | Check mouse up event | `bool` |
 
-## ?? Common Patterns
+## Common Patterns
 
 ### Monitor Everything (C++)
 ```cpp
@@ -154,7 +154,7 @@ void Update()
 }
 ```
 
-## ?? Important Notes
+## Important Notes
 
 ### Initialization
 - **Must call `Initialize()` before any other function**
@@ -181,7 +181,7 @@ void Update()
 - Can be called from different threads
 - PDH queries are internally synchronized
 
-## ?? Use Cases
+## Use Cases
 
 ### Performance Monitoring Dashboard
 ```csharp
@@ -226,7 +226,7 @@ float average = history.Average();
 float max = history.Max();
 ```
 
-## ?? Troubleshooting
+## Troubleshooting
 
 ### "Initialize() returns false"
 - Check if PDH service is running
@@ -248,7 +248,7 @@ float max = history.Max();
 - Don't query per-core usage unless needed
 - Disable GPU counters if not required
 
-## ?? Files Included
+## Files Included
 
 - `dllmain.cpp` - Main DLL implementation
 - `SystemMonitorAPI.h` - C/C++ header file
@@ -257,18 +257,18 @@ float max = history.Max();
 - `Examples/SystemMonitorUnity.cs` - Unity MonoBehaviour
 - `Examples/AdvancedSystemMonitor.cs` - Historical tracking example
 
-## ?? Next Steps
+## Next Steps
 
 1. **Basic Usage**: Start with `SystemMonitorExample.cs`
 2. **Unity Integration**: Use `SystemMonitorUnity.cs` as template
 3. **Advanced Features**: Explore `AdvancedSystemMonitor.cs` for graphs/stats
 4. **Custom Implementation**: Modify `dllmain.cpp` to add new metrics
 
-## ?? License
+## License
 
 Check your project license requirements.
 
-## ?? Tips
+## Tips
 
 - Cache DLL import declarations in a static class
 - Use interpolation for smooth UI updates

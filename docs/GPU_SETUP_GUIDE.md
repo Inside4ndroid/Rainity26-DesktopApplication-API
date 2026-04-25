@@ -2,15 +2,15 @@
 
 This guide will help you enable GPU temperature, clock speed, fan speed, power draw, and voltage monitoring for NVIDIA, AMD, and Intel GPUs.
 
-## ?? Current Status
+## Current Status
 
-? **Framework Ready**: GPU monitoring infrastructure is implemented  
-?? **Vendor SDKs Required**: Need to download and integrate vendor-specific SDKs  
-?? **Fallback Available**: Basic GPU info works without SDKs (name, VRAM, usage via PDH)
+**Framework Ready**: GPU monitoring infrastructure is implemented  
+**Vendor SDKs Required**: Need to download and integrate vendor-specific SDKs  
+**Fallback Available**: Basic GPU info works without SDKs (name, VRAM, usage via PDH)
 
 ---
 
-## ?? NVIDIA GPU Support (NVAPI)
+## NVIDIA GPU Support (NVAPI)
 
 ### Step 1: Download NVAPI SDK
 
@@ -24,11 +24,11 @@ This guide will help you enable GPU temperature, clock speed, fan speed, power d
 From the extracted NVAPI SDK, copy these files to `DesktopApplication\` folder:
 
 ```
-?? Your NVAPI SDK/
-??? nvapi.h                  ? Copy this
-??? nvapi64.lib             ? Copy this (64-bit)
-??? nvapi.lib               ? Copy this (32-bit, optional)
-??? NvApiDriverSettings.h   ? Copy this
+Your NVAPI SDK/
+nvapi.h          <- copy this
+nvapi64.lib     <- copy this (64-bit)
+nvapi.lib       <- copy this (32-bit, optional)
+NvApiDriverSettings.h  <- copy this
 ```
 
 **Copy to:**
@@ -52,23 +52,23 @@ C:\Users\rob_w\Rainity26\NativePlugin~\DesktopApplication\
 
 Build your solution. It should now link with NVAPI!
 
-### ? Features Unlocked (NVIDIA):
-- ? GPU Temperature (Core)
-- ? GPU Clock Speed (Core & Memory)
-- ? Fan Speed (RPM & Percentage)
-- ? Power Draw (Watts)
-- ? Voltage (Volts)
-- ? GPU Usage %
-- ? Memory Usage
+### Features Unlocked (NVIDIA):
+- GPU Temperature (Core)
+- GPU Clock Speed (Core & Memory)
+- Fan Speed (RPM & Percentage)
+- Power Draw (Watts)
+- Voltage (Volts)
+- GPU Usage %
+- Memory Usage
 
 ---
 
-## ?? AMD GPU Support (ADL)
+## AMD GPU Support (ADL)
 
 ### Step 1: Download ADL SDK
 
 1. Go to: **https://github.com/GPUOpen-LibrariesAndSDKs/display-library**
-2. Click "Code" ? "Download ZIP"
+2. Click "Code" > "Download ZIP"
 3. Extract the ZIP file
 
 ### Step 2: Copy Required Files
@@ -76,11 +76,11 @@ Build your solution. It should now link with NVAPI!
 From the ADL SDK, copy these files to `DesktopApplication\` folder:
 
 ```
-?? display-library-master/
-??? include/
-?   ??? adl_sdk.h           ? Copy this
-?   ??? adl_structures.h    ? Copy this
-?   ??? adl_defines.h       ? Copy this
+display-library-master/
+include/
+  +-- adl_sdk.h   <- copy this
+  +-- adl_structures.h  <- copy this
+  +-- adl_defines.h  <- copy this
 ```
 
 **Copy to:**
@@ -152,52 +152,52 @@ bool InitializeADL()
 #endif
 ```
 
-### ? Features Unlocked (AMD):
-- ? GPU Temperature (Core & Junction)
-- ? GPU Clock Speed (Core & Memory)
-- ? Fan Speed (RPM & Percentage)
-- ? GPU Usage %
-- ?? Power Draw (limited support)
-- ?? Voltage (limited support)
+### Features Unlocked (AMD):
+- GPU Temperature (Core & Junction)
+- GPU Clock Speed (Core & Memory)
+- Fan Speed (RPM & Percentage)
+- GPU Usage %
+- Power Draw (limited support)
+- Voltage (limited support)
 
 ---
 
-## ?? Intel GPU Support
+## Intel GPU Support
 
 ### Good News!
 
 Intel GPUs have **limited monitoring** but don't require additional SDKs.
 
 ### Features Available (Intel):
-- ? GPU Name
-- ? VRAM Total/Used
-- ? GPU Usage (via Windows PDH)
-- ? Temperature (not accessible without WMI)
-- ? Clock Speed (not accessible)
-- ? Fan Speed (not applicable for most iGPUs)
+- GPU Name
+- VRAM Total/Used
+- GPU Usage (via Windows PDH)
+- Temperature (not accessible without WMI)
+- Clock Speed (not accessible)
+- Fan Speed (not applicable for most iGPUs)
 
 Intel monitoring works out-of-the-box with the current implementation!
 
 ---
 
-## ?? File Structure After Setup
+## File Structure After Setup
 
 ```
 DesktopApplication\
-??? dllmain.cpp
-??? GPUMonitor.h
-??? GPUMonitor.cpp
-??? nvapi.h                    ? NVIDIA SDK (if enabling)
-??? nvapi64.lib               ? NVIDIA SDK (if enabling)
-??? NvApiDriverSettings.h     ? NVIDIA SDK (if enabling)
-??? adl_sdk.h                 ? AMD SDK (if enabling)
-??? adl_structures.h          ? AMD SDK (if enabling)
-??? adl_defines.h             ? AMD SDK (if enabling)
+dllmain.cpp
+GPUMonitor.h
+GPUMonitor.cpp
+nvapi.h            (NVIDIA SDK)
+nvapi64.lib       (NVIDIA SDK)
+NvApiDriverSettings.h  (NVIDIA SDK)
+adl_sdk.h         (AMD SDK)
+adl_structures.h  (AMD SDK)
+adl_defines.h     (AMD SDK)
 ```
 
 ---
 
-## ?? Building the Project
+## Building the Project
 
 ### Without SDKs (Default):
 ```
@@ -208,17 +208,17 @@ DesktopApplication\
 ### With NVIDIA SDK:
 1. Copy NVAPI files
 2. Uncomment `#define ENABLE_NVIDIA_NVAPI`
-3. Build ? Full NVIDIA monitoring enabled!
+3. Build -> Full NVIDIA monitoring enabled!
 
 ### With AMD SDK:
 1. Copy ADL files
 2. Uncomment `#define ENABLE_AMD_ADL`
 3. Implement ADL initialization (see above)
-4. Build ? Full AMD monitoring enabled!
+4. Build -> Full AMD monitoring enabled!
 
 ---
 
-## ?? Testing Your Implementation
+## Testing Your Implementation
 
 ### C# Test Code:
 
@@ -254,7 +254,7 @@ uint vendorId = GetGPUVendorID();
 Console.WriteLine($"GPU Vendor: {vendorId:X4}");  // 10DE=NVIDIA, 1002=AMD, 8086=Intel
 
 float temp = GetGPUTemperature();
-Console.WriteLine($"GPU Temp: {temp}°C");
+Console.WriteLine($"GPU Temp: {temp}ï¿½C");
 
 int coreClock = GetGPUClockSpeed();
 Console.WriteLine($"GPU Clock: {coreClock} MHz");
@@ -271,12 +271,12 @@ Console.WriteLine($"Power Draw: {power} W");
 
 ---
 
-## ?? Expected Results
+## Expected Results
 
 ### NVIDIA GPU (with NVAPI):
 ```
 GPU Vendor: 10DE
-GPU Temp: 62.0°C
+GPU Temp: 62.0ï¿½C
 GPU Clock: 1935 MHz
 Memory Clock: 7000 MHz
 Fan Speed: 1450 RPM
@@ -286,7 +286,7 @@ Power Draw: 145.2 W
 ### AMD GPU (with ADL):
 ```
 GPU Vendor: 1002
-GPU Temp: 68.0°C
+GPU Temp: 68.0ï¿½C
 GPU Clock: 2100 MHz
 Memory Clock: 1000 MHz
 Fan Speed: 2100 RPM
@@ -296,7 +296,7 @@ Power Draw: -1.0 W (if not supported)
 ### Intel GPU (built-in):
 ```
 GPU Vendor: 8086
-GPU Temp: -1.0°C (not available)
+GPU Temp: -1.0ï¿½C (not available)
 GPU Clock: 0 MHz (not available)
 Memory Clock: 0 MHz (not available)
 Fan Speed: -1 RPM (not applicable)
@@ -305,7 +305,7 @@ Power Draw: -1.0 W (not available)
 
 ---
 
-## ? Troubleshooting
+## Troubleshooting
 
 ### "nvapi.h not found" error:
 - Ensure you copied `nvapi.h` to the `DesktopApplication\` folder
@@ -313,11 +313,11 @@ Power Draw: -1.0 W (not available)
 
 ### "Unresolved external symbol" linking error:
 - Ensure you copied `nvapi64.lib` to the `DesktopApplication\` folder
-- Add to linker input if needed: Project Properties ? Linker ? Input ? Additional Dependencies ? `nvapi64.lib`
+- Add to linker input if needed: Project Properties > Linker > Input > Additional Dependencies > `nvapi64.lib`
 
 ### GPU temperature still returns -1:
 - Make sure you uncommented `#define ENABLE_NVIDIA_NVAPI` or `#define ENABLE_AMD_ADL`
-- Rebuild the entire solution (Clean ? Build)
+- Rebuild the entire solution (Clean > Build)
 - Check if your GPU drivers are up to date
 
 ### AMD ADL functions not found:
@@ -327,7 +327,7 @@ Power Draw: -1.0 W (not available)
 
 ---
 
-## ?? Next Steps
+## Next Steps
 
 1. **Choose your GPU vendor** (NVIDIA, AMD, or both)
 2. **Download the appropriate SDK(s)**
@@ -339,7 +339,7 @@ Would you like me to help with any specific part of the setup?
 
 ---
 
-## ?? Notes
+## Notes
 
 - You can enable **both** NVIDIA and AMD support simultaneously
 - The code will auto-detect which GPU is present and use the correct API
@@ -349,4 +349,4 @@ Would you like me to help with any specific part of the setup?
 ---
 
 **Created for System Monitor API v1.0**  
-GPU monitoring framework ready for SDK integration! ??
+GPU monitoring framework ready for SDK integration.

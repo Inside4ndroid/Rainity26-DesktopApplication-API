@@ -1,10 +1,10 @@
 # GPU Monitoring API - Quick Reference
 
-## ?? New GPU Functions (7 Total)
+## New GPU Functions (7 Total)
 
 | Function | Return Type | Description | Notes |
 |----------|-------------|-------------|-------|
-| `GetGPUTemperature()` | `float` | GPU temperature in °C | -1.0 if unavailable |
+| `GetGPUTemperature()` | `float` | GPU temperature in ï¿½C | -1.0 if unavailable |
 | `GetGPUClockSpeed()` | `int` | Core clock in MHz | 0 if unavailable |
 | `GetGPUMemoryClock()` | `int` | Memory clock in MHz | 0 if unavailable |
 | `GetGPUFanSpeed()` | `int` | Fan speed in RPM | -1 if unavailable |
@@ -13,7 +13,7 @@
 | `GetGPUVoltage()` | `float` | Core voltage in Volts | -1.0 if unavailable |
 | `GetGPUVendorID()` | `uint` | Vendor ID | 10DE, 1002, 8086, or 0 |
 
-## ?? Quick Start
+## Quick Start
 
 ### Without SDKs (Works Now):
 ```csharp
@@ -26,15 +26,15 @@ uint vendor = GetGPUVendorID();  // Works!
 1. Download NVAPI from https://developer.nvidia.com/nvapi
 2. Copy `nvapi.h`, `nvapi64.lib` to `DesktopApplication\`
 3. Edit `GPUMonitor.cpp`, uncomment: `#define ENABLE_NVIDIA_NVAPI`
-4. Build ? Full monitoring enabled!
+4. Build -> Full monitoring enabled!
 
 ### With AMD SDK:
 1. Download ADL from https://github.com/GPUOpen-LibrariesAndSDKs/display-library
 2. Copy ADL headers to `DesktopApplication\`
 3. Edit `GPUMonitor.cpp`, uncomment: `#define ENABLE_AMD_ADL`
-4. Build ? Full monitoring enabled!
+4. Build -> Full monitoring enabled!
 
-## ?? C# Example
+## C# Example
 
 ```csharp
 using System;
@@ -92,7 +92,7 @@ class GPUTest
         // Get temperature
         float temp = GetGPUTemperature();
         if (temp >= 0)
-            Console.WriteLine($"Temperature: {temp:F1}°C");
+            Console.WriteLine($"Temperature: {temp:F1}ï¿½C");
         else
             Console.WriteLine("Temperature: Not available (enable SDK)");
         
@@ -121,57 +121,57 @@ class GPUTest
 }
 ```
 
-## ?? Vendor Support Matrix
+## Vendor Support Matrix
 
 | Feature | NVIDIA (NVAPI) | AMD (ADL) | Intel |
 |---------|---------------|-----------|-------|
-| Temperature | ? Full | ? Full | ? |
-| Core Clock | ? | ? | ? |
-| Memory Clock | ? | ? | ? |
-| Fan Speed (RPM) | ? | ? | N/A |
-| Fan Speed (%) | ? | ? | N/A |
-| Power Draw | ? | ?? Limited | ? |
-| Voltage | ? | ?? Limited | ? |
-| Vendor ID | ? | ? | ? |
+| Temperature | Yes | Yes | No |
+| Core Clock | Yes | Yes | No |
+| Memory Clock | Yes | Yes | No |
+| Fan Speed (RPM) | Yes | Yes | N/A |
+| Fan Speed (%) | Yes | Yes | N/A |
+| Power Draw | Yes (via nvidia-smi) | Partial | No |
+| Voltage | No | Partial | No |
+| Vendor ID | Yes | Yes | Yes |
 
-? = Fully supported  
-?? = Partially supported  
-? = Not available  
+Yes = Fully supported  
+Partial = Partially supported  
+No = Not available  
 N/A = Not applicable  
 
-## ?? Setup Required?
+## Setup Required?
 
 ### Option 1: Use Without SDKs (Works Now!)
-- ? Vendor detection works
-- ? GPU name works
-- ? VRAM usage works
-- ? Temperature/clocks unavailable
+- Vendor detection works
+- GPU name works
+- VRAM usage works
+- Temperature/clocks unavailable
 
 ### Option 2: Add NVIDIA Support (5 minutes)
 1. Register at nvidia.com/developer
 2. Download NVAPI
 3. Copy 2 files
 4. Uncomment 1 line
-5. Build ? Done!
+5. Build -> Done!
 
 ### Option 3: Add AMD Support (10 minutes)
 1. Download from GitHub
 2. Copy 3 files
 3. Uncomment 1 line
 4. Implement ADL init (code provided)
-5. Build ? Done!
+5. Build -> Done!
 
-## ? Performance
+## Performance
 
 - **Overhead**: Minimal (<1% CPU)
 - **Update Rate**: Poll every 1-2 seconds
 - **Thread Safe**: Yes
 - **Admin Required**: No (for most features)
 
-## ?? Full Documentation
+## Full Documentation
 
 See `GPU_SETUP_GUIDE.md` for complete setup instructions!
 
 ---
 
-**Ready to use NOW!** Vendor detection and basic GPU info work immediately. Enable SDKs for temperature/clock monitoring. ??
+**Ready to use NOW!** Vendor detection and basic GPU info work immediately. Enable SDKs for temperature/clock monitoring.

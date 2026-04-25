@@ -1,55 +1,55 @@
-# ?? System Monitor API - Comprehensive Windows Monitoring DLL
+# System Monitor API - Comprehensive Windows Monitoring DLL
 
 A complete C++ DLL library for monitoring all aspects of Windows system performance, hardware statistics, and resource usage.
 
-## ?? Features
+## Features
 
-### ?? CPU Monitoring
+### CPU Monitoring
 - **Overall CPU Usage**: Frequency-adjusted utilization matching Task Manager
 - **Per-Core Usage**: Monitor individual CPU core/thread utilization
 - **CPU Information**: Brand name, core count, base frequency
 - **Temperature Monitoring**: Placeholder for temperature readings (requires hardware-specific implementation)
 
-### ?? Memory Monitoring
+### Memory Monitoring
 - **Physical RAM**: Total and used system memory
 - **GPU VRAM**: Video memory usage via DXGI (Windows 8.1+)
 - **Page File**: Virtual memory usage statistics
 
-### ?? Disk Monitoring
+### Disk Monitoring
 - **Disk I/O**: Real-time read/write throughput (bytes/sec)
 - **Disk Space**: Total and free space per drive letter
 
-### ?? Network Monitoring
+### Network Monitoring
 - **Network Throughput**: Bytes sent/received per second across all interfaces
 
-### ?? GPU Monitoring
+### GPU Monitoring
 - **GPU Usage**: Utilization percentage
 - **GPU Information**: Adapter name/description
 - **VRAM Usage**: Dedicated video memory tracking
 - **Temperature & Clock Speed**: Placeholders for vendor-specific implementations
 
-### ?? Battery & Power
+### Battery & Power
 - **Battery Status**: Charge percentage, charging state, remaining time
 - **Power Information**: AC line status
 
-### ?? System Information
+### System Information
 - **System Uptime**: Time since last boot
 - **Process Statistics**: Process, thread, and handle counts
 - **Windows Version**: OS version and build number
 
-### ??? Input & UI Utilities
+### Input & UI Utilities
 - **Mouse Hooks**: Low-level mouse event monitoring
 - **Keyboard Simulation**: Send virtual key presses
-- **Icon Rendering**: Extract 256×256 shell icons for files/folders
+- **Icon Rendering**: Extract 256ï¿½256 shell icons for files/folders
 - **User Avatar**: Retrieve current user's account picture path
 
-## ?? Requirements
+## Requirements
 
 - **Windows 8.1 or later** (for DXGI 1.4 features)
 - **C++17 compiler** (Visual Studio 2017+)
 - **Administrator privileges** (optional, for some advanced features)
 
-### ?? Dependencies
+### Dependencies
 - `pdh.lib` - Performance Data Helper
 - `dxgi.lib` - DirectX Graphics Infrastructure
 - `powrprof.lib` - Power management
@@ -58,9 +58,9 @@ A complete C++ DLL library for monitoring all aspects of Windows system performa
 - `psapi.lib` - Process status
 - `shell32.lib`, `comctl32.lib`, `user32.lib`, `gdi32.lib`
 
-## ?? Usage
+## Usage
 
-### 1?? Initialize the Library
+### 1. Initialize the Library
 
 ```cpp
 if (!Initialize()) {
@@ -69,7 +69,7 @@ if (!Initialize()) {
 }
 ```
 
-### 2?? Monitor CPU
+### 2. Monitor CPU
 
 ```cpp
 // Overall CPU usage
@@ -92,7 +92,7 @@ int frequency = GetCPUFrequency();
 printf("Base Frequency: %d MHz\n", frequency);
 ```
 
-### 3?? Monitor Memory
+### 3. Monitor Memory
 
 ```cpp
 long long memTotal, memUsed, vMemTotal, vMemUsed;
@@ -113,7 +113,7 @@ if (GetPageFileUsage(&pageTotal, &pageUsed)) {
 }
 ```
 
-### 4?? Monitor Disk I/O
+### 4. Monitor Disk I/O
 
 ```cpp
 long long readBytes, writeBytes;
@@ -130,7 +130,7 @@ if (GetDiskSpace(L'C', &totalSpace, &freeSpace)) {
 }
 ```
 
-### 5?? Monitor Network
+### 5. Monitor Network
 
 ```cpp
 long long bytesSent, bytesRecv;
@@ -140,7 +140,7 @@ if (GetNetworkStats(&bytesSent, &bytesRecv)) {
 }
 ```
 
-### 6?? Monitor GPU
+### 6. Monitor GPU
 
 ```cpp
 float gpuUsage = GetGPUUsagePercent();
@@ -152,7 +152,7 @@ if (GetGPUName(gpuName, 256)) {
 }
 ```
 
-### 7?? Check Battery Status
+### 7. Check Battery Status
 
 ```cpp
 int percentage;
@@ -174,7 +174,7 @@ if (GetBatteryStatus(&percentage, &isCharging, &remainingMinutes)) {
 }
 ```
 
-### 8?? System Information
+### 8. System Information
 
 ```cpp
 long long uptime = GetSystemUptime();
@@ -194,7 +194,7 @@ if (GetSystemInfoString(sysInfo, 512)) {
 }
 ```
 
-## ?? C# Interop Example
+## C# Interop Example
 
 ```csharp
 using System;
@@ -258,7 +258,7 @@ public class SystemMonitor
 }
 ```
 
-## ?? Unity Integration Example
+## Unity Integration Example
 
 ```csharp
 using UnityEngine;
@@ -302,20 +302,20 @@ public class SystemMonitorUnity : MonoBehaviour
 }
 ```
 
-## ? Performance Notes
+## Performance Notes
 
 - **PDH Queries**: The library uses Windows Performance Data Helper (PDH) for most counters
 - **Sampling Rate**: Call `Initialize()` once at startup, then query functions at your desired interval (recommended: 500ms - 2s)
 - **Thread Safety**: Most functions are thread-safe as they use isolated PDH queries
 - **Overhead**: Minimal performance impact; PDH is the same system Task Manager uses
 
-## ??? Temperature Monitoring
+## Temperature Monitoring
 
 Temperature monitoring functions (`GetCPUTemperature()`, `GetGPUTemperature()`, `GetMotherboardTemperature()`, `GetFanSpeed()`) are currently **placeholders** returning -1.
 
 To implement these, you would need:
 
-### ?? For CPU/Motherboard Temperatures:
+### For CPU/Motherboard Temperatures:
 1. **WMI Queries** (Windows Management Instrumentation)
    - Namespace: `root\WMI` or `root\OpenHardwareMonitor`
    - Requires COM initialization and complex queries
@@ -328,34 +328,34 @@ To implement these, you would need:
    - Requires kernel driver
    - Hardware-specific (Intel vs AMD)
 
-### ?? For GPU Temperatures:
+### For GPU Temperatures:
 1. **NVIDIA GPUs**: NVIDIA NVAPI SDK
 2. **AMD GPUs**: AMD Display Library (ADL) SDK
 3. **Intel GPUs**: Intel Graphics API
 
-## ?? Limitations
+## Limitations
 
 - **GPU Counter Availability**: GPU utilization counters may not be available on older Windows versions or certain GPU drivers
 - **Network Interface Wildcards**: Network counters use wildcards and may aggregate all interfaces
 - **Administrative Privileges**: Some advanced features may require elevation
 - **Temperature APIs**: Not included due to hardware-specific requirements
 
-## ?? Building
+## Building
 
-### ??? Visual Studio
+### Visual Studio
 1. Open the solution in Visual Studio 2017 or later
 2. Ensure C++17 standard is enabled
 3. Build the project (Release x64 recommended)
 
-### ?? Compiler Requirements
+### Compiler Requirements
 - C++17 or later
 - Windows SDK 10.0 or later
 
-## ?? License
+## License
 
 This is a utility library. Check your project's license requirements.
 
-## ?? Contributing
+## Contributing
 
 To extend functionality:
 1. Add new PDH counters in `Initialize()`
@@ -363,14 +363,14 @@ To extend functionality:
 3. Document in `SystemMonitorAPI.h`
 4. Update this README
 
-## ?? Version History
+## Version History
 
 - **v1.0** - Initial comprehensive release
   - CPU, Memory, Disk, Network, GPU monitoring
   - Battery status and system information
   - Mouse hooks and utility functions
 
-## ?? Support
+## Support
 
 For hardware-specific temperature monitoring implementation, consider:
 - **LibreHardwareMonitor**: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
